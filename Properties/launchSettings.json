@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "stateandcapitalapp_api": {
+      "commandName": "Project",
+      "commandLineArgs": "--port:7078",
+      "environmentVariables": {
+        "PG_CONNECTION": "Server=localhost;Port=5000;Database=postgres;User Id=angela;Password=Qazwsxedc!;"
+      },
+      "sqlDebugging": true
+    },
+    "Profile 1": {
+      "commandName": "Executable"
+    }
+  }
+}
