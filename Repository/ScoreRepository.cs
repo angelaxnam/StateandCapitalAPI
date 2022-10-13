@@ -16,10 +16,15 @@ namespace stateandcapitalapp_api.repository
         {
             this._dbContext = dbContext;
         }
-        public async Task<IEnumerable<Score>> GetScore()
+        public async Task<IEnumerable<Score>> GetScore(long id)
         {
-            var score = await this._dbContext.Score.Take(100).ToListAsync();
+            var score = await _dbContext.Score.Where(i => i.id == id).ToListAsync();
             return score;
+        }
+         public async Task PostScore(Score score)
+        {
+            _dbContext.Score.AddRange(score);
+            await _dbContext.SaveChangesAsync();
         }
     }
 }

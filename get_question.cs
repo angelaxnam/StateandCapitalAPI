@@ -34,6 +34,22 @@ namespace stateandcapitalapp_api
                 return new BadRequestObjectResult(ex);
             }
         }
+
+        [FunctionName("GetQuestionView")]
+        public async Task<IActionResult> GetQuestionView(
+           [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "qview")] HttpRequest req,
+           ILogger log)
+        {
+            try
+            {
+                var questionView = await this._questionRepository.GetQuestionView();
+                return new OkObjectResult(questionView);
+            }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex);
+            }
+        }
     }
 }
   

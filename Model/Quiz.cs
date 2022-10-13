@@ -2,12 +2,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-[Table("Score")]
-public class Score
+[Table("Quiz")]
+public class Quiz
 {
     [Key]
     [Column("id")]
     public long id { get; set; }
-    [Column("score")]
-    public long score { get; set; }
 }

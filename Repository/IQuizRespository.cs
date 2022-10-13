@@ -4,9 +4,8 @@ using System;
 
 namespace stateandcapitalapp_api.repository
 {
-    public interface IScoreRepository
+    public interface IQuizRepository
     {
-        Task<IEnumerable<Score>> GetScore(long id);
-        Task PostScore(Score score);
+        Task<IEnumerable<Quiz>> GetQuiz(long id);
     }
 }

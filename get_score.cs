@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
@@ -20,15 +21,44 @@ namespace stateandcapitalapp_api
             this._scoreRepository = scoreRepository;
         }
         [FunctionName("GetScore")]
-        public async Task<IActionResult> Run(
-            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "score")] HttpRequest req,
+        public async Task<IActionResult> GetScore(
+            [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "{id}/score")] HttpRequest req,
+             long id,
             ILogger log)
         {
             try
             {
-                var score= await this._scoreRepository.GetScore();
+                var score = await this._scoreRepository.GetScore(id);
                 return new OkObjectResult(score);
             }
+            catch (Exception ex)
+            {
+                return new BadRequestObjectResult(ex);
+            }
+        }
+
+        [FunctionName("PostScore")]
+        public async Task<IActionResult> Run(
+         [HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "score")] HttpRequest req,
+         ILogger log)
+        {
+            try
+            {
+                ValidationWrapper<Score> authRequest = await req.GetBodyAsync<Score>();
+                if (!authRequest.IsValid)
+                {
+                    return new BadRequestObjectResult($"Model is invalid: {string.Join(", ", authRequest.ValidationResults.Select(s => s.ErrorMessage).ToArray())}");
+                }
+
+                var score = new Score();
+                score.id = authRequest.Value.id;
+                score.score = authRequest.Value.score; 
+
+                await this._scoreRepository.PostScore(score);
+
+                return new OkObjectResult(score);
+            }
+
             catch (Exception ex)
             {
                 return new BadRequestObjectResult(ex);

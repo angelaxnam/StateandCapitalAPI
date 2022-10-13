@@ -18,6 +18,7 @@ namespace stateandcapitalapp_api
             builder.Services.AddTransient<IQuestionRepository, QuestionRepository>();
             builder.Services.AddTransient<IStateRepository, StateRepository>();
             builder.Services.AddTransient<IScoreRepository, ScoreRepository>();
+            builder.Services.AddTransient<IQuizRepository, QuizRepository>();
         }
     }
     }

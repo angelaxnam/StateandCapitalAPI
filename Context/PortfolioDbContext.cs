@@ -7,9 +7,10 @@ namespace stateandcapitalapp_api.context
 	{
 		public DbSet<Capital> Capital { get; set; }
 		public DbSet<Question> Question { get; set; }
+		public DbSet<QuestionViewTable> QuestionViewTable {get; set;}
 		public DbSet<State> State{ get; set; }
 		public DbSet<Score> Score { get; set; }
-
+		public DbSet<Quiz> Quiz { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
 			var connString = System.Environment.GetEnvironmentVariable("PG_CONNECTION");
